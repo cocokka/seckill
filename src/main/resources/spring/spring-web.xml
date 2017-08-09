@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--开启springmvc注解模式
+        1):自动注册DefaultAnnotationHandlerMapping, AnnotationMethodHandlerAdapter
+        2):默认提供一系统功能：数据绑定，日期和数据的转换：@NumberFormat, @DateFormat, xml json 默认读写支持
+    -->
+    <mvc:annotation-driven/>
+
+    <!--静态资源映射-->
+    <mvc:default-servlet-handler/>
+
+    <!--jsp渲染-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!--扫描web接口-->
+    <context:component-scan base-package="org.echo.seckill.web"/>
+
+</beans>

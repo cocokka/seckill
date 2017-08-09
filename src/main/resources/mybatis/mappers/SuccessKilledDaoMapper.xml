@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.echo.seckill.dao.SuccessKilledDao">
+
+    <insert id="saveSuccessKilled" useGeneratedKeys="true">
+        INSERT ignore INTO success_killed (seckill_id, user_phone)
+        VALUES (#{seckillId}, #{userPhone});
+    </insert>
+
+    <select id="getById" resultType="org.echo.seckill.domain.SuccessKilled">
+        SELECT
+        sk.seckill_id,
+        sk.user_phone,
+        sk.state,
+        sk.create_time,
+        s.seckill_id AS "seckill.seckill_id",
+        s.name AS "seckill.name",
+        s.number AS "seckill.number",
+        s.start_time AS "seckill.start_time",
+        s.end_time AS "seckill.end_time",
+        s.create_time AS "seckill.create_time"
+        FROM success_killed sk
+        LEFT JOIN seckill s ON sk.seckill_id = s.seckill_id
+        where sk.user_phone = #{userPhone} AND sk.seckill_id = #{seckillId};
+    </select>
+
+
+    <!--<select id="getById" resultMap="successKilledMap">
+        SELECT
+          sk.seckill_id AS "sk_id",
+          sk.user_phone AS "sk_user_phone",
+          sk.state AS "sk_state",
+          sk.create_time AS "sk_create_time",
+          s.seckill_id AS "s_id",
+          s.name AS "s_name",
+          s.number AS "s_number",
+          s.start_time AS "s_start_time",
+          s.end_time AS "s_end_time",
+          s.create_time AS "s_create_time"
+        FROM success_killed sk
+        LEFT JOIN seckill s ON sk.seckill_id = s.seckill_id
+        where sk.user_phone = #{userPhone} AND sk.seckill_id = #{seckillId};
+    </select>
+
+    <resultMap id="successKilledMap" type="org.echo.seckill.domain.SuccessKilled">
+        <id column="sk_id" property="seckillId" javaType="long"/>
+        <id column="sk_user_phone" property="userPhone" javaType="long"/>
+        <result column="sk_state" property="state"/>
+        <result column="sk_create_time" property="createTime"/>
+        <association property="seckill" javaType="org.echo.seckill.domain.Seckill">
+            <id column="s_id" property="seckill.seckillId" javaType="long"/>
+            <result column="s_name" property="seckill.name"/>
+            <result column="s_number" property="seckill.number"/>
+            <result column="s_start_time" property="seckill.startTime"/>
+            <result column="s_end_time" property="seckill.endTime"/>
+            <result column="s_create_time" property="seckill.createTime"/>
+        </association>
+    </resultMap>-->
+
+
+</mapper>
